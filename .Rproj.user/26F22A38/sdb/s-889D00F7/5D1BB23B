@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "fluidPage(\n  column(10, offset = 1,\n         h4(\"gfella\"),\n         tabsetPanel(\n           tabPanel(\"Authorize\",\n                    fluidRow(\n                      column(12,\n                             uiOutput(\"AuthGAURL\")\n                      )\n                    )\n           ),\n           tabPanel(\"Releases\",\n                    tabsetPanel(\n                      tabPanel(\"New\",\n                               fluidRow(\n                                 column(2,\n                                        numericInput(\"nr.limit\", \"Limit\", 20, 1, 50)\n                                 ),\n                                 column(10,\n                                        dataTableOutput(\"new_releases\")\n                                 )\n                               )\n                      ),\n                      tabPanel(\"Stones Throw Records\",\n                               dataTableOutput(\"stonesthrow.catalog\")\n                      ),\n                      tabPanel(\"Def Jux\"),\n                      tabPanel(\"Fools Gold\"),\n                      tabPanel(\"Top Dawg\")\n                    )\n           ),\n           tabPanel(\"Playlists\",\n                    fluidRow(\n                      column(12,\n                             dataTableOutput(\"playlists\")\n                      )\n                    )\n           ),\n           tabPanel(\"Recommendations\",\n                    fluidRow(\n                      column(2,\n                             uiOutput(\"genres\"),\n                             search.cat(\"Acousticness\", 0, 0, 1, .1),\n                             search.cat(\"Danceability\"),\n                             search.cat(\"Duration_ms\"),\n                             search.cat(\"Energy\"),\n                             search.cat(\"Instrumentalness\"),\n                             selectInput(\"key\", \"Key\", c = p),\n                             search.cat(\"Liveness\"),\n                             search.cat(\"Loudness\"),\n                             search.cat(\"Mode\"),\n                             search.cat(\"Popularity\", max = 100),\n                             search.cat(\"Speechiness\"),\n                             search.cat(\"Tempo\"),\n                             search.cat(\"Time_signature\"),\n                             search.cat(\"Valence\")\n                      ),\n                      column(10,\n                             dataTableOutput(\"recommendations\")\n                      )\n                    )\n           )\n         )\n  )\n)\n",
+    "created" : 1497240482364.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1196827312",
+    "id" : "5D1BB23B",
+    "lastKnownWriteTime" : 1497417401,
+    "last_content_update" : 1497417401388,
+    "path" : "~/gfella/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

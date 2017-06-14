@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "options(shiny.port = 6423)\n\nlibrary(shiny)\nlibrary(DT)\nlibrary(RCurl)\nlibrary(httr)\nlibrary(XML)\nlibrary(rjson)\n\nsapply(c(\"auth.R\", \"stonesthrow.R\"), source)\n\nsearch.cat <- function(name, value = 0, min = 0, max = 1, step = .1) {\n  fluidRow(\n    checkboxInput(sprintf(\"%s_on\", tolower(name)), name, value = FALSE),\n    conditionalPanel(condition = sprintf(\"input.%s_on == true\", tolower(name)),\n                     numericInput(tolower(name), NA, value = value, min = min, max = max, step = step),\n                     checkboxGroupInput(sprintf(\"%s_mode\", tolower(name)), NA, list(\"min\", \"max\"))\n    )\n  )\n}\n\n\npitch <- data.frame(\n  pitch = c(\"C\", \"C#\", \"D\", \"D#\", \"E\", \"F\", \"F#\", \"G\", \"G#\", \"A\", \"A#\", \"B\"),\n  integer = c(0:11)\n)\n\np <- as.list(pitch$integer)\nnames(p) <- pitch$pitch\n\nitem.types <- c(\"album\", \"artist\", \"track\", \"playlist\")\n\n# 0\tC (also B♯, Ddouble flat)\n# 1\tC♯, D♭ (also Bdouble sharp)\n# 2\tD (also Cdouble sharp, Edouble flat)\n# 3\tD♯, E♭ (also Fdouble flat)\n# 4\tE (also Ddouble sharp, F♭)\n# 5\tF (also E♯, Gdouble flat)\n# 6\tF♯, G♭ (also Edouble sharp)\n# 7\tG (also Fdouble sharp, Adouble flat)\n# 8\tG♯, A♭\n# 9\tA (also Gdouble sharp, Bdouble flat)\n# 10, t or A\tA♯, B♭ (also Cdouble flat)\n# 11, e or B\tB (also Adouble sharp, C♭)\n",
+    "created" : 1497349685764.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2433133917",
+    "id" : "9B524EA0",
+    "lastKnownWriteTime" : 1497417448,
+    "last_content_update" : 1497417448854,
+    "path" : "~/gfella/global.R",
+    "project_path" : "global.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

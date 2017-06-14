@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "stonesthrow <- \"https://www.stonesthrow.com/catalog\"\n\ndoc <- content(GET(stonesthrow))\ndata <- sapply(getNodeSet(htmlParse(doc), \"//td\"),xmlValue)\ndata <- data[9:2900]\n\nstonesthrow <- data.frame(\n  year = data[seq(1, 2892, by = 6)],\n  artist = data[seq(2, 2892, by = 6)],\n  title = data[seq(3, 2892, by = 6)],\n  label = data[seq(4, 2892, by = 6)],\n  format = data[seq(5, 2892, by = 6)],\n  cat.no = data[seq(6, 2892, by = 6)]\n)",
+    "created" : 1497386489375.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3696864445",
+    "id" : "D8C0426E",
+    "lastKnownWriteTime" : 1497417274,
+    "last_content_update" : 1497417274804,
+    "path" : "~/gfella/stonesthrow.R",
+    "project_path" : "stonesthrow.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 12,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

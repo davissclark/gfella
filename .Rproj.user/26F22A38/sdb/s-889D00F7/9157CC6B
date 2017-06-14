@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(httr)\nlibrary(rjson)\n\n\nbase <- \"https:///\"\nrequest <- \"oauth/request_token\"\nauthorize <- \"authorize\"\naccess <-\t\"api/token\"\n\nscope <- \"playlist-read-private playlist-modify-private\"\n\n# GET https://accounts.spotify.com/authorize/?client_id=5fe01282e44241328a84e7c5cc169165&response_type=code&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&scope=user-read-private%20user-read-email&state=34fFs29kd09\n\n\nspotify <- oauth_app(\"gfella\", key, secret)\n\nendpoint <- oauth_endpoint(authorize = \"authorize\", request = \"oauth/request_token\", access =\t\"api/token\", base_url = \"https://accounts.spotify.com/\", )\n\noauth2.0_token(endpoint, app = spotify, scope = scope, user_params = NULL,\n               type = NULL, use_oob = FALSE)\n\n\n## auth.r\nCLIENT_ID      <-  \"YOUR CLIENT ID\"\nCLIENT_SECRET  <-  \"YOUR CLIENT SECRET\"\nCLIENT_URL     <-  'https://your-url-that-picks-up-return-token.com'\n# CLIENT_URL     <-  'http://127.0.0.1:6423'  # I comment this out for deployment, in for local testing\n\n### Authentication functions\n\n## generate the URL the user clicks on.\n## The redirect URL is then returned to with the extra 'code' and 'state' URL parameters appended to it.\n\n\n\nShinyGetTokenURL <- function(client.id     = CLIENT_ID,\n                             client.secret = CLIENT_SECRET,\n                             redirect.uri  = CLIENT_URL) {\n\n  url <- paste('https://accounts.google.com/o/oauth2/auth?',\n               'scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fanalytics+',  ## plus any other scopes you need\n               'https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fanalytics.readonly&',\n               'state=securitytoken&',\n               'redirect_uri=', redirect.uri, '&',\n               'response_type=code&',\n               'client_id=', client.id, '&',\n               'approval_prompt=auto&',\n               'access_type=online', sep='', collapse='');\n  return(url)\n}",
+    "created" : 1497335816134.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4227518811",
+    "id" : "9157CC6B",
+    "lastKnownWriteTime" : 1497347696,
+    "last_content_update" : 1497347696535,
+    "path" : "~/gfella/spotify_api.R",
+    "project_path" : "spotify_api.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

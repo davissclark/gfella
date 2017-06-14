@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "// content of index.js\nconst http = require('http')\nconst port = 3000\n\nconst requestHandler = (request, response) => {\n  console.log(request.url)\n  response.end('Hello Node.js Server!')\n}\n\nconst server = http.createServer(requestHandler)\n\nserver.listen(port, (err) => {\n  if (err) {\n    return console.log('something bad happened', err)\n  }\n\n  console.log(`server is listening on ${port}`)\n})",
+    "created" : 1497340393346.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2831999186",
+    "id" : "61BF5047",
+    "lastKnownWriteTime" : 1497340411,
+    "last_content_update" : 1497340411270,
+    "path" : "~/index.js",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "js"
+}

@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(httr)\nlibrary(rjson)\n\nkey <- \"bBCuDgKpHAxAfbDhLMNS\"\nsecret <- \"bxIgUaVLAAAxNfDzfiPByQpgHbWZBIsp\"\nbase <- \"https://api.discogs.com/\"\nrequest <- \"oauth/request_token\"\nauthorize <- \"oauth/authorize\"\naccess <-\t\"oauth/access_token\"\n\n\ngfella <- oauth_app(\"gfella\", key, secret)\nendpoints <- oauth_endpoint(request, authorize, access, base_url = base)\ntoken <- oauth1.0_token(endpoints, gfella, cache = FALSE)\n\nua <- user_agent(\"gfella/0.1\")\n\n\n\nartists <- \"/artists/1\"\n\n\ng.query <- function(q) {\n  sprintf(\"/database/search?q={%s}&key=%s&secret=%s\", q, key, secret)\n}\n\ngfella_api <- function(path, q = NULL) {\n  url <- modify_url(\"https://api.discogs.com\", path = path)\n\n  resp <- GET(url, ua, query = list(q = q,\n                                    key = key,\n                                    secret = secret))\n  # if (http_type(resp) != \"application/json\") {\n  #   stop(\"API did not return json\", call. = FALSE)\n  # }\n\n  parsed <- fromJSON(content(resp, \"text\"), simplifyVector = FALSE)\n\n  structure(\n    list(\n      content = parsed,\n      path = path,\n      response = resp\n    ),\n    class = \"gfella_api\"\n  )\n}\n\nprint.gfella_api <- function(x, ...) {\n  cat(\"<gfella \", x$path, \">\\n\", sep = \"\")\n  str(x$content)\n  invisible(x)\n}\n\n\nformat_entry <- function(r) {\n  style <- sapply(seq(1:length(r)), function(z) paste0(sapply(seq(1:length(resp$content$results[[z]]$style)), function(x) resp$content$results[[z]]$style[[x]]), collapse = \", \"))\n  thumb <- resp$content$results[[50]]$thumb\n  format <- paste0(sapply(seq(1:length(resp$content$results[[50]]$format)), function(x) resp$content$results[[50]]$format[[x]]), collapse = \", \")\n  country <- resp$content$results[[50]]$country\n  barcode <- resp$content$results[[50]]$barcode\n  uri <- resp$content$results[[50]]$uri\n  community.have <- resp$content$results[[50]]$community$have\n  community.want <- resp$content$results[[50]]$community$want\n  label <- paste0(sapply(seq(1:length(resp$content$results[[50]]$label)), function(x) resp$content$results[[50]]$label[[x]]), collapse = \", \")\n  catno <- resp$content$results[[50]]$catno\n  year <- resp$content$results[[50]]$year\n  genre <- paste0(sapply(seq(1:length(resp$content$results[[50]]$genre)), function(x) resp$content$results[[50]]$genre[[x]]), collapse = \", \")\n  title <- resp$content$results[[50]]$title\n  resource_url <- resp$content$results[[50]]$resource_url\n  type <- resp$content$results[[50]]$type\n  id <- resp$content$results[[50]]$id\n\n  data.frame(style, thumb, format, country,\n             ifelse(length(barcode) == 0, 0, barcode),\n             uri, community.have, community.want,\n             label, catno, year, genre, title,\n             resource_url, type, id)\n}\n\nhot100 <- htmlParse(content(GET(\"http://www.billboard.com/charts/hot-100\")))\nhot100chart <- getNodeSet(hot100, \"//article[contains(@class, 'chart-row')]\")\nchartrows <- lapply(1:length(hot100chart), function(x) getNodeSet(hot100chart[[x]], \".//div[contains(@class, 'chart-row')]\")[[1]])\ngetNodeSet(chartrow, \".//div[contains(@class, 'chart-row')]\")\n\nhot100 <- read_html(GET(\"http://www.billboard.com/charts/hot-100\"))\n\nxml_find_all(hot100, \".//article[contains(@class, 'data-tracklabel')]\")\n\n\nr <- sapply(1:100, function(x) as_list(xml_find_all(hot100, \".//article[contains(@class, 'chart-row')]\")[x]))\n\nsapply(1:length(r), function(x) {\n  # title <-  r[[x]][[1]][[8]][[6]][[2]][[2]][[1]]\n  artist <- r[[x]][[1]][[8]][[6]][[2]][[4]][[1]]\n  lastweek <- r[[x]][[1]][[8]][[2]][[4]][[1]]\n  current.week <- r[[x]][[1]][[8]][[2]][[2]][[1]]\n\n  # c(title, artist, lastweek, current.week)\n  title\n})",
+    "created" : 1497240488094.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3545033578",
+    "id" : "5FDDA741",
+    "lastKnownWriteTime" : 1497347696,
+    "last_content_update" : 1497347696460,
+    "path" : "~/gfella/discogs-oauth.R",
+    "project_path" : "discogs-oauth.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

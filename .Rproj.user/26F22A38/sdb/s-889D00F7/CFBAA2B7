@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "## GUIDE TO AUTH2 Authentication in R Shiny (or other online apps)\n##\n## Mark Edmondson 2015-02-16 - @HoloMarkeD | http://markedmondson.me\n##\n## v 0.1\n##\n##\n## Go to the Google API console and activate the APIs you need. https://code.google.com/apis/console/?pli=1\n## Get your client ID, and client secret for use below, and put in the URL of your app in the redirect URIs\n##  e.g. I put in https://mark.shinyapps.io/ga-effect/ for the GA Effect app,\n## and http://127.0.0.1:6423 for local testing (start the Shiny App by using this command to force the port: runApp(port=6423)\n##\n## I then have an auth.r file I source which is below\n##\n\n## auth.r\n\nCLIENT_ID      <-  \"500da4551e66466cb36537fa14a21a99\"\nCLIENT_SECRET  <-  \"506feca2db304a16ae9834f4078e4a79\"\nCLIENT_URL     <-  \"http://127.0.0.1:6423\"\n# CLIENT_URL     <-  'http://127.0.0.1:6423'  # I comment this out for deployment, in for local testing\n\n### Authentication functions\n\n## generate the URL the user clicks on.\n## The redirect URL is then returned to with the extra 'code' and 'state' URL parameters appended to it.\nShinyGetTokenURL <- function(client.id     = CLIENT_ID,\n                             client.secret = CLIENT_SECRET,\n                             redirect.uri  = CLIENT_URL) {\n\n  url <- paste('https://accounts.spotify.com/authorize?',\n               'redirect_uri=', redirect.uri, '&',\n               'response_type=code&',\n               'client_id=', client.id, sep='', collapse='');\n  return(url)\n}\n\n## gets the token from Google once you have the code that is in the return URL\nShinyGetToken <- function(code,\n                          client.id     = CLIENT_ID,\n                          client.secret = CLIENT_SECRET,\n                          redirect.uri  = CLIENT_URL){\n\n  token <- MErga.authenticate(client.id = client.id,\n                              client.secret = client.secret,\n                              code = code,\n                              redirect.uri = redirect.uri);\n\n  return(token)\n}\n\n## posts your code to google to get the current refresh\nMErga.authenticate <- function(client.id, client.secret, code, redirect.uri) {\n  opts <- list(verbose = FALSE);\n  raw.data <- postForm(\"https://accounts.spotify.com/api/token\",\n                       .opts = opts,\n                       code = code,\n                       client_id = client.id,\n                       client_secret = client.secret,\n                       redirect_uri = redirect.uri,\n                       grant_type = 'authorization_code',\n                       style = 'POST');\n\n  token.data <- fromJSON(raw.data);\n  now <- as.numeric(Sys.time());\n  token <- c(token.data, timestamp = c('first'=now, 'refresh'=now));\n\n  return(token);\n}\n#### end auth.r\n",
+    "created" : 1497343216375.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1256366892",
+    "id" : "CFBAA2B7",
+    "lastKnownWriteTime" : 1497345268,
+    "last_content_update" : 1497345268553,
+    "path" : "~/gfella/auth.R",
+    "project_path" : "auth.R",
+    "properties" : {
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
